@@ -17,8 +17,6 @@ export const SearchInput = ({ placeholder, value, onChange, clearInput }) => {
     setBackground("#F5F5F5");
     setisFocused(false);
   };
-
-  // "../icons/searchBlue.png"
   return (
     <InputBox>
       <StyledInput
@@ -68,16 +66,16 @@ const StyledIconSearch = styled.Image`
   position: absolute;
   width: 25px;
   height: 25px;
-  top: 37%;
-  left: 4%;
+  top: 28px;
+  left: 15px;
 `;
 
 const StyledIconClear = styled.Image`
   position: absolute;
   width: 25px;
   height: 25px;
-  top: 37%;
-  right: 5%;
+  top: 28px;
+  right: 15px;
 `;
 
 const InputBox = styled.View`

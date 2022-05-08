@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Dimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, StyleSheet, TextInput } from "react-native";
+
 
 const options = [
   {
@@ -58,7 +58,7 @@ export const ChooseAccountType = ({ navigation }) => {
       style={{ flex: 1, width: "100%" }}
       colors={["#6842FF", "#FFE9FF"]}
     >
-      <StatusBar barStyle="light-content" backgroundColor="#6842FF" />
+      <StatusBar />
       <TitleBox>
         <Title>Choose account type</Title>
         <Hint>{hint}</Hint>

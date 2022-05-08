@@ -1,10 +1,11 @@
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import styled from "styled-components/native";
 import { LocationComponent } from "./Location";
+import { LinearGradient } from "expo-linear-gradient";
 
-export const Header = () => {
+export const Header = ({style}) => {
   return (
-    <HeaderContainer>
+    <HeaderContainer style={style}>
       <StyledIconAvatar source={require("../icons/bogdan.jpg")} />
       <LocationComponent />
       <StyeledIconMenu source={require("../icons/menu-button.png")} />
