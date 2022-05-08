@@ -10,29 +10,15 @@ const theme = {
     background: "transparent",
   },
 };
-
-const placeData = {
-  title: "Dengoff Bar",
-  businesType: "Food / drink",
-  photo: require("../icons/dengoff.png"),
-  description: "We cook pizza, make hookahs, eat alcoholic beverages",
-  scedule: {
-    monday: "10:00 - 21:00",
-    tuesday: "10:00 - 21:00",
-    wednesday: "10:00 - 21:00",
-    tursday: "10:00 - 21:00",
-    friday: "10:00 - 21:00",
-    saturday: "10:00 - 21:00",
-    sunday: "10:00 - 21:00",
-  },
-};
+const windowWidth = Dimensions.get("window").width;
 
 export const PlaceCard = ({ data }) => {
   const [isFavorite, setIsfavorite] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const { title, businesType, photo, description } = data;
   const { monday, tuesday, wednesday, tursday, friday, saturday, sunday } =
-    placeData.scedule;
+    data.scedule;
+
   return (
     <Container isExpanded={isExpanded}>
       <Box>
@@ -51,7 +37,9 @@ export const PlaceCard = ({ data }) => {
             )}
           </CardLabel>
           <Title>{title}</Title>
-          <Description>{description}</Description>
+          <Description numberOfLines={windowWidth > 414 ? 4 : 2}>
+            {description}
+          </Description>
         </CardContent>
       </Box>
       <ListContainer>
@@ -67,39 +55,40 @@ export const PlaceCard = ({ data }) => {
         >
           <WorkDayItem style={{ paddingLeft: 30 }}>
             <Day>Monday</Day>
-            <Day>{monday}</Day>
+            <Day>{monday.workTime}</Day>
           </WorkDayItem>
           <WorkDayItem style={{ paddingLeft: 30 }}>
             <Day>Tuesday</Day>
-            <Day>{tuesday}</Day>
+            <Day>{tuesday.workTime}</Day>
           </WorkDayItem>
           <WorkDayItem style={{ paddingLeft: 30 }}>
             <Day>Wednesday</Day>
-            <Day>{wednesday}</Day>
+            <Day>{wednesday.workTime}</Day>
           </WorkDayItem>
           <WorkDayItem style={{ paddingLeft: 30 }}>
             <Day>Tursday</Day>
-            <Day>{tursday}</Day>
+            <Day>{tursday.workTime}</Day>
           </WorkDayItem>
           <WorkDayItem style={{ paddingLeft: 30 }}>
             <Day>Friday</Day>
-            <Day>{friday}</Day>
+            <Day>{friday.workTime}</Day>
           </WorkDayItem>
-          <WorkDayItem dayOff={true} style={{ paddingLeft: 30 }}>
-            <Day dayOff={true}>Saturday</Day>
-            <Day dayOff={true}>{saturday}</Day>
+          <WorkDayItem
+            dayOff={saturday.dayOff || true}
+            style={{ paddingLeft: 30 }}
+          >
+            <Day dayOff={saturday.dayOff}>Saturday</Day>
+            <Day dayOff={saturday.dayOff}>{saturday.workTime}</Day>
           </WorkDayItem>
-          <WorkDayItem dayOff={true} style={{ paddingLeft: 30 }}>
-            <Day dayOff={true}>Sunday</Day>
-            <Day dayOff={true}>{sunday}</Day>
+          <WorkDayItem dayOff={sunday.dayOff} style={{ paddingLeft: 30 }}>
+            <Day dayOff={sunday.dayOff}>Sunday</Day>
+            <Day dayOff={sunday.dayOff}>{sunday.workTime}</Day>
           </WorkDayItem>
         </List.Accordion>
       </ListContainer>
     </Container>
   );
 };
-
-const windowWidth = Dimensions.get("window").width;
 
 const maxHeight = windowWidth > 414 ? "150px" : "100px";
 
@@ -158,7 +147,7 @@ const BusinesType = styled.Text`
 const Description = styled.Text`
   padding-top: 5px;
   font-size: 16px;
-  width: 80%;
+  width: 70%;
   max-width: 300px;
   color: #5c677d;
 `;
