@@ -6,7 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 export const Header = ({style}) => {
   return (
     <HeaderContainer style={style}>
-      <StyledIconAvatar source={require("../icons/bogdan.jpg")} />
+      <StyledIconAvatar source={require("../images/bogdan.jpg")} />
       <LocationComponent />
       <StyeledIconMenu source={require("../icons/menu-button.png")} />
     </HeaderContainer>

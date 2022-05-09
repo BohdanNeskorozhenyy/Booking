@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import React, { useState } from "react";
 import { Dimensions } from "react-native";
-import { List, DefaultTheme, configureFonts } from "react-native-paper";
+import { List, DefaultTheme } from "react-native-paper";
 
 const theme = {
   ...DefaultTheme,
@@ -12,12 +12,12 @@ const theme = {
 };
 const windowWidth = Dimensions.get("window").width;
 
-export const PlaceCard = ({ data }) => {
+export const PlaceCard = ({ data, expandedCadr, setExpanded }) => {
   const [isFavorite, setIsfavorite] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
   const { title, businesType, photo, description } = data;
   const { monday, tuesday, wednesday, tursday, friday, saturday, sunday } =
     data.scedule;
+  const isExpanded = expandedCadr === data.id;
 
   return (
     <Container isExpanded={isExpanded}>
@@ -50,7 +50,7 @@ export const PlaceCard = ({ data }) => {
         <List.Accordion
           theme={theme}
           expanded={isExpanded}
-          onPress={() => setIsExpanded(!isExpanded)}
+          onPress={() => setExpanded(isExpanded ? 0 : data.id)}
           left={() => <FavoriteIcon source={require("../icons/clock.png")} />}
         >
           <WorkDayItem style={{ paddingLeft: 30 }}>

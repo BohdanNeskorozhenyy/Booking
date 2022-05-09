@@ -19,8 +19,9 @@ const places = [
     id: 1,
     title: "Dengoff Bar",
     businesType: "Food / drink",
-    photo: require("../icons/dengoff.png"),
-    description: "We cook pizza, make hookahs, eat alcoholic beverages, We cook pizza, make hookahs, eat alcoholic beverages",
+    photo: require("../images/dengoff.png"),
+    description:
+      "We cook pizza, make hookahs, eat alcoholic beverages, We cook pizza, make hookahs, eat alcoholic beverages",
     scedule: {
       monday: { workTime: "10:00 - 21:00", dayOff: false },
       tuesday: { workTime: "10:00 - 21:00", dayOff: false },
@@ -35,7 +36,7 @@ const places = [
     id: 2,
     title: "4men",
     businesType: "Services",
-    photo: require("../icons/forMen.png"),
+    photo: require("../images/forMen.png"),
     description: "Men's barber shop",
     scedule: {
       monday: { workTime: "10:00 - 18:00", dayOff: false },
@@ -49,26 +50,26 @@ const places = [
   },
   {
     id: 3,
-    title: "4men",
-    businesType: "Services",
-    photo: require("../icons/forMen.png"),
-    description: "Men's barber shop",
+    title: "The Space",
+    businesType: "Work",
+    photo: require("../images/space.png"),
+    description: "Space for work, meetings, conferences",
     scedule: {
-      monday: { workTime: "10:00 - 18:00", dayOff: false },
-      tuesday: { workTime: "10:00 - 18:00", dayOff: false },
-      wednesday: { workTime: "10:00 - 18:00", dayOff: false },
-      tursday: { workTime: "10:00 - 18:00", dayOff: true },
-      friday: { workTime: "10:00 - 18:00", dayOff: false },
+      monday: { workTime: "10:00 - 20:00", dayOff: false },
+      tuesday: { workTime: "10:00 - 20:00", dayOff: false },
+      wednesday: { workTime: "10:00 - 20:00", dayOff: false },
+      tursday: { workTime: "10:00 - 20:00", dayOff: false },
+      friday: { workTime: "10:00 - 20:00", dayOff: false },
       saturday: { workTime: "10:00 - 18:00", dayOff: true },
       sunday: { workTime: "10:00 - 18:00", dayOff: true },
     },
   },
   {
     id: 4,
-    title: "4men",
-    businesType: "Services",
-    photo: require("../icons/forMen.png"),
-    description: "Men's barber shop",
+    title: "L`evidence Beaute",
+    businesType: "Beaute",
+    photo: require("../images/BeautySalon.png"),
+    description: "The only premium beauty salon in Kyiv with a history of over 20 years",
     scedule: {
       monday: { workTime: "10:00 - 18:00", dayOff: false },
       tuesday: { workTime: "10:00 - 18:00", dayOff: false },
@@ -85,6 +86,7 @@ export const FindPlace = ({ navigation }) => {
   const [searchValue, setSearchValue] = useState("");
   const [placeType, setPlaceType] = useState("");
   const [headerBorder, setHeaderBorder] = useState(0);
+  const [expandedCadr, setExpandedCadr] = useState(0);
 
   const changeHandler = (e) => {
     setSearchValue(e);
@@ -94,7 +96,7 @@ export const FindPlace = ({ navigation }) => {
   const scrollHandler = (e) => {
     const scrollHeight = e.nativeEvent.contentOffset.y;
     console.log(scrollHeight);
-    if (scrollHeight > 5) {
+    if (scrollHeight > 2) {
       setHeaderBorder(1);
     } else {
       setHeaderBorder(0);
@@ -120,7 +122,12 @@ export const FindPlace = ({ navigation }) => {
           />
           <Tags onChange={setPlaceType} options={placeTypes} />
           {places.map((place) => (
-            <PlaceCard key={place.id} data={place} />
+            <PlaceCard
+              expandedCadr={expandedCadr}
+              setExpanded={setExpandedCadr}
+              key={place.id}
+              data={place}
+            />
           ))}
         </ScrollView>
       </Content>
