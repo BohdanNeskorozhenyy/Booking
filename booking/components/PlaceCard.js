@@ -12,20 +12,28 @@ const theme = {
 };
 const windowWidth = Dimensions.get("window").width;
 
-export const PlaceCard = ({ data, expandedCadr, setExpanded }) => {
+export const PlaceCard = ({ data, expandedCadr, setExpanded, navigation }) => {
   const [isFavorite, setIsfavorite] = useState(false);
-  const { title, businesType, photo, description } = data;
+  const { title, businesSubType, photo, description } = data;
+  const [toPlace, setToPlace] = useState('FindPlace');
+
   const { monday, tuesday, wednesday, tursday, friday, saturday, sunday } =
     data.scedule;
   const isExpanded = expandedCadr === data.id;
 
+  const NavigateToplace = () => {
+    navigation.navigate('Place');
+  };
+  
+
+
   return (
     <Container isExpanded={isExpanded}>
       <Box>
-        <PlaceImage source={photo} />
+        <PlaceImage onTouchEnd={NavigateToplace} source={photo} />
         <CardContent>
           <CardLabel>
-            <BusinesType>{businesType}</BusinesType>
+            <BusinesType>{businesSubType}</BusinesType>
             {isFavorite ? (
               <FavoriteWrap onTouchEnd={() => setIsfavorite(!isFavorite)}>
                 <FavoriteIcon source={require("../icons/likeBlue.png")} />

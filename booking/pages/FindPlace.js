@@ -18,7 +18,8 @@ const places = [
   {
     id: 1,
     title: "Dengoff Bar",
-    businesType: "Food / drink",
+    businesSubType: "Food / drink",
+    businesType: 'rent',
     photo: require("../images/dengoff.png"),
     description:
       "We cook pizza, make hookahs, eat alcoholic beverages, We cook pizza, make hookahs, eat alcoholic beverages",
@@ -35,7 +36,8 @@ const places = [
   {
     id: 2,
     title: "4men",
-    businesType: "Services",
+    businesSubType: "Services",
+    businesType: 'service',
     photo: require("../images/forMen.png"),
     description: "Men's barber shop",
     scedule: {
@@ -51,7 +53,8 @@ const places = [
   {
     id: 3,
     title: "The Space",
-    businesType: "Work",
+    businesSubType: "Work",
+    businesType: 'rent',
     photo: require("../images/space.png"),
     description: "Space for work, meetings, conferences",
     scedule: {
@@ -67,7 +70,8 @@ const places = [
   {
     id: 4,
     title: "L`evidence Beaute",
-    businesType: "Beaute",
+    businesSubType: "Beaute",
+    businesType: 'service',
     photo: require("../images/BeautySalon.png"),
     description: "The only premium beauty salon in Kyiv with a history of over 20 years",
     scedule: {
@@ -95,7 +99,6 @@ export const FindPlace = ({ navigation }) => {
 
   const scrollHandler = (e) => {
     const scrollHeight = e.nativeEvent.contentOffset.y;
-    console.log(scrollHeight);
     if (scrollHeight > 2) {
       setHeaderBorder(1);
     } else {
@@ -127,6 +130,7 @@ export const FindPlace = ({ navigation }) => {
               setExpanded={setExpandedCadr}
               key={place.id}
               data={place}
+              navigation={navigation}
             />
           ))}
         </ScrollView>
