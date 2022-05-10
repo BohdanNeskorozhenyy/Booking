@@ -15,7 +15,7 @@ export const Place = ({ navigation }) => {
       <Header
         navigation={navigation}
         backRoute={"FindPlace"}
-        backRouteText="Find Place"
+        backRouteText="Find a place"
         style={{ borderBottomWidth: 1 }}
       />
       <PhotoContainer>

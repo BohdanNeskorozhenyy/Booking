@@ -1,8 +1,8 @@
 import styled from "styled-components/native";
 import React, { useState } from "react";
 
-export const Tags = ({ options, onChange }) => {
-  const [activeOption, setActiveOption] = useState("");
+export const Tags = ({ options, onChange, defaultValue }) => {
+  const [activeOption, setActiveOption] = useState(defaultValue);
 
   const changeHandler = (value) => {
     setActiveOption(value);

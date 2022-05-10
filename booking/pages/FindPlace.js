@@ -119,7 +119,7 @@ export const FindPlace = ({ navigation }) => {
               placeholder="Search place"
               clearInput={() => changeHandler("")}
             />
-            <Tags onChange={setPlaceType} options={placeTypes} />
+            <Tags onChange={setPlaceType} options={placeTypes} defaultValue={'all'} />
             {places.map((place) => (
               <PlaceCard
                 expandedCadr={expandedCadr}
