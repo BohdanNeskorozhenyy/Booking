@@ -19,7 +19,7 @@ const places = [
     id: 1,
     title: "Dengoff Bar",
     businesSubType: "Food / drink",
-    businesType: 'rent',
+    businesType: "rent",
     photo: require("../images/dengoff.png"),
     description:
       "We cook pizza, make hookahs, eat alcoholic beverages, We cook pizza, make hookahs, eat alcoholic beverages",
@@ -37,7 +37,7 @@ const places = [
     id: 2,
     title: "4men",
     businesSubType: "Services",
-    businesType: 'service',
+    businesType: "service",
     photo: require("../images/forMen.png"),
     description: "Men's barber shop",
     scedule: {
@@ -54,7 +54,7 @@ const places = [
     id: 3,
     title: "The Space",
     businesSubType: "Work",
-    businesType: 'rent',
+    businesType: "rent",
     photo: require("../images/space.png"),
     description: "Space for work, meetings, conferences",
     scedule: {
@@ -71,9 +71,10 @@ const places = [
     id: 4,
     title: "L`evidence Beaute",
     businesSubType: "Beaute",
-    businesType: 'service',
+    businesType: "service",
     photo: require("../images/BeautySalon.png"),
-    description: "The only premium beauty salon in Kyiv with a history of over 20 years",
+    description:
+      "The only premium beauty salon in Kyiv with a history of over 20 years",
     scedule: {
       monday: { workTime: "10:00 - 18:00", dayOff: false },
       tuesday: { workTime: "10:00 - 18:00", dayOff: false },
@@ -109,7 +110,12 @@ export const FindPlace = ({ navigation }) => {
   return (
     <Container>
       <StatusBar backgroundColor="#FFFFFF" style="dark" />
-      <Header style={{ borderBottomWidth: headerBorder }} />
+      <Header
+        avatar
+        navigation={navigation}
+        location
+        style={{ borderBottomWidth: headerBorder }}
+      />
       <Content>
         <ScrollView
           onScroll={scrollHandler}

@@ -1,17 +1,16 @@
 import styled from "styled-components/native";
 
-export const LocationComponent = () => {
+export const LocationComponent = ({ location }) => {
   return (
     <LocationBox>
       <LocationIcon source={require("../icons/location.png")} />
-      <LocationText>Tetiev</LocationText>
+      <LocationText>{location}</LocationText>
     </LocationBox>
   );
 };
 
 const LocationBox = styled.View`
   flex-direction: row;
-  justify-content: center;
   align-items: center;
 `;
 

@@ -2,6 +2,7 @@ import styled from "styled-components/native";
 import React, { useState } from "react";
 import { Dimensions } from "react-native";
 import { List, DefaultTheme } from "react-native-paper";
+import { Accordion } from "./Accordion";
 
 const theme = {
   ...DefaultTheme,
@@ -15,20 +16,19 @@ const windowWidth = Dimensions.get("window").width;
 export const PlaceCard = ({ data, expandedCadr, setExpanded, navigation }) => {
   const [isFavorite, setIsfavorite] = useState(false);
   const { title, businesSubType, photo, description } = data;
-  const [toPlace, setToPlace] = useState('FindPlace');
+
+  const [toPlace, setToPlace] = useState("FindPlace");
 
   const { monday, tuesday, wednesday, tursday, friday, saturday, sunday } =
     data.scedule;
   const isExpanded = expandedCadr === data.id;
 
   const NavigateToplace = () => {
-    navigation.navigate('Place');
+    navigation.navigate("Place");
   };
-  
-
 
   return (
-    <Container isExpanded={isExpanded}>
+    <Container>
       <Box>
         <PlaceImage onTouchEnd={NavigateToplace} source={photo} />
         <CardContent>
@@ -55,11 +55,9 @@ export const PlaceCard = ({ data, expandedCadr, setExpanded, navigation }) => {
           <OpenStatus>Open</OpenStatus>
           {!isExpanded && <TimeOfClothe>Closes at 21:00</TimeOfClothe>}
         </OpenStatusBox>
-        <List.Accordion
-          theme={theme}
-          expanded={isExpanded}
-          onPress={() => setExpanded(isExpanded ? 0 : data.id)}
-          left={() => <FavoriteIcon source={require("../icons/clock.png")} />}
+        <Accordion
+          setExpanded={() => setExpanded(isExpanded ? 0 : data.id)}
+          isExpanded={isExpanded}
         >
           <WorkDayItem style={{ paddingLeft: 30 }}>
             <Day>Monday</Day>
@@ -92,7 +90,7 @@ export const PlaceCard = ({ data, expandedCadr, setExpanded, navigation }) => {
             <Day dayOff={sunday.dayOff}>Sunday</Day>
             <Day dayOff={sunday.dayOff}>{sunday.workTime}</Day>
           </WorkDayItem>
-        </List.Accordion>
+        </Accordion>
       </ListContainer>
     </Container>
   );
@@ -107,7 +105,6 @@ const Box = styled.View`
 `;
 const Container = styled.View`
   width: 100%;
-  padding-bottom: ${(props) => (props.isExpanded ? "370px" : "70px")};
 `;
 const PlaceImage = styled.Image`
   width: 30%;
@@ -162,10 +159,9 @@ const Description = styled.Text`
 
 const ListContainer = styled.View`
   width: 100%;
-  position: absolute;
-  top: 100%;
   border-bottom-width: 1;
   border-bottom-color: #47315a;
+  padding-bottom: 10px;
 `;
 
 const OpenStatusBox = styled.View`
@@ -173,7 +169,7 @@ const OpenStatusBox = styled.View`
   justify-content: space-between;
   position: absolute;
   top: 18px;
-  left: 35px;
+  left: 5px;
 `;
 
 const OpenStatus = styled.Text`

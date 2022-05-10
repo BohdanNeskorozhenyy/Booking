@@ -1,13 +1,28 @@
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import styled from "styled-components/native";
 import { LocationComponent } from "./Location";
-import { LinearGradient } from "expo-linear-gradient";
 
-export const Header = ({style}) => {
+export const Header = ({
+  avatar,
+  style,
+  location,
+  backRoute,
+  backRouteText,
+  navigation,
+}) => {
+  const NavigateBack = () => {
+    navigation.navigate(backRoute);
+  };
   return (
     <HeaderContainer style={style}>
-      <StyledIconAvatar source={require("../images/bogdan.jpg")} />
-      <LocationComponent />
+      {avatar && <StyledIconAvatar source={require("../images/bogdan.jpg")} />}
+      {location && <LocationComponent location={"Tetiev"} />}
+      {backRoute && backRouteText && (
+        <BackBox onTouchEnd={NavigateBack}>
+          <BackIcon source={require("../icons/backArrow.png")} />
+          <BackText>{backRouteText}</BackText>
+        </BackBox>
+      )}
       <StyeledIconMenu source={require("../icons/menu-button.png")} />
     </HeaderContainer>
   );
@@ -33,3 +48,18 @@ const StyeledIconMenu = styled.Image`
   height: 30px;
 `;
 
+const BackText = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+const BackBox = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+const BackIcon = styled.Image`
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+`;

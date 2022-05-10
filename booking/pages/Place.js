@@ -3,28 +3,21 @@ import { StyleSheet, Text, View } from "react-native";
 import styled from "styled-components/native";
 import Slick from "react-native-slick";
 import { StatusBar } from "expo-status-bar";
+import { LocationComponent } from "../components/Location";
+import { Header } from "../components/Header";
 
 export const Place = ({ navigation }) => {
   const [isFavorite, setIsfavorite] = useState(false);
-  const NavigateBack = () => {
-    navigation.navigate("FindPlace");
-  };
 
   return (
     <Container>
-      <StatusBar hidden={true} StatusBarStyle="light" />
-      <TopButtonsBox>
-        <BackIconWrap onTouchEnd={NavigateBack}>
-          <BackIcon source={require("../icons/backIcon.png")} />
-        </BackIconWrap>
-        <FavoriteIconWrap onTouchEnd={() => setIsfavorite(!isFavorite)}>
-          {isFavorite ? (
-            <FavoriteIcon source={require("../icons/likeBlue.png")} />
-          ) : (
-            <FavoriteIcon source={require("../icons/like.png")} />
-          )}
-        </FavoriteIconWrap>
-      </TopButtonsBox>
+      <StatusBar />
+      <Header
+        navigation={navigation}
+        backRoute={"FindPlace"}
+        backRouteText="Find Place"
+        style={{ borderBottomWidth: 1 }}
+      />
       <PhotoContainer>
         <Slick
           activeDot={<ActiveDot />}
@@ -43,19 +36,33 @@ export const Place = ({ navigation }) => {
           </View>
         </Slick>
       </PhotoContainer>
-      <Content></Content>
+      <Content>
+        <TitleBox onTouchEnd={() => setIsfavorite(!isFavorite)}>
+          <NameOfBusiness>Dengoff Bar</NameOfBusiness>
+          {isFavorite ? (
+            <FavoriteIcon source={require("../icons/likeBlue.png")} />
+          ) : (
+            <FavoriteIcon source={require("../icons/like.png")} />
+          )}
+        </TitleBox>
+        <LocationComponent location={"Tetiev, Shevchenko Street, 132"} />
+        <Description>
+          We cook pizza, make hookahs, eat alcoholic beverages, We cook pizza,
+          make hookahs, eat alcoholic beverages We cook pizza, make hookahs, eat
+          alcoholic beverages, We cook pizza, make hookahs, eat alcoholic
+          beverages
+        </Description>
+      </Content>
     </Container>
   );
 };
 
 const PhotoContainer = styled.View`
-  flex: 6;
+  flex: 5;
   width: 100%;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
   z-index: 1;
 `;
 
@@ -63,6 +70,8 @@ const Content = styled.View`
   flex: 10;
   height: 100%;
   width: 100%;
+  padding: 0 20px;
+  padding-top: 20px;
 `;
 
 const Container = styled.View`
@@ -149,4 +158,22 @@ const BackIcon = styled.Image`
 const FavoriteIcon = styled.Image`
   width: 25px;
   height: 25px;
+`;
+
+const NameOfBusiness = styled.Text`
+  font-size: 26px;
+  font-weight: bold;
+  margin-right: auto;
+`;
+
+const TitleBox = styled.View`
+  flex-direction: row;
+  margin-bottom: 10px;
+  align-items: center;
+`;
+
+const Description = styled.Text`
+  margin-top: 10px;
+  font-size: 18px;
+  color: #5c677d;
 `;
