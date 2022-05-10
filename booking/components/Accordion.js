@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { Animated, Image } from "react-native";
+import { Animated, Image, TouchableOpacity } from "react-native";
 import { useState, useEffect, useRef } from "react";
 
 export const Accordion = ({ children, isExpanded, setExpanded }) => {
@@ -9,7 +9,7 @@ export const Accordion = ({ children, isExpanded, setExpanded }) => {
 
   const makeBig = () => {
     Animated.timing(expandAnim, {
-      toValue: 370,
+      toValue: 350,
       duration: 350,
       useNativeDriver: false,
     }).start();
@@ -49,45 +49,38 @@ export const Accordion = ({ children, isExpanded, setExpanded }) => {
   }, [localIsExpadned]);
 
   return (
-    <Animated.View style={[ContainerStyle, { height: expandAnim }]}>
-      <Header>
-        <Animated.Image
-          style={[
-            ExpandIconStyled,
-            {
-              transform: [
+
+      <Animated.View style={[ContainerStyle, { height: expandAnim }]}>
+        <TouchableOpacity
+          onPress={setExpanded ? setExpanded : setLocalIsExpanded}
+        >
+          <Header>
+            <Animated.Image
+              style={[
+                ExpandIconStyled,
                 {
-                  rotate: rotateAnim.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: ["0deg", "180deg"],
-                  }),
+                  transform: [
+                    {
+                      rotate: rotateAnim.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: ["0deg", "180deg"],
+                      }),
+                    },
+                  ],
                 },
-              ],
-            },
-          ]}
-          onTouchEnd={setExpanded ? setExpanded : setLocalIsExpanded}
-          source={require("../icons/bownArrow.png")}
-        />
-      </Header>
-      {children}
-    </Animated.View>
+              ]}
+              source={require("../icons/bownArrow.png")}
+            />
+          </Header>
+        </TouchableOpacity>
+        {children}
+      </Animated.View>
   );
 };
 
-const WorkDayItem = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: ${(props) => (props.dayOff ? "#d988cd" : "#e6e6e6")};
-  padding: 5px;
-  padding-right: 30px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-`;
 
-const Day = styled.Text`
-  color: ${(props) => (props.dayOff ? "white" : "#58707c")};
-  font-size: 18px;
-`;
+
+
 
 const ContainerStyle = {
   width: "100%",

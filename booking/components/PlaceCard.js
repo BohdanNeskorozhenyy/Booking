@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import React, { useState } from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, TouchableOpacity } from "react-native";
 import { List, DefaultTheme } from "react-native-paper";
 import { Accordion } from "./Accordion";
 
@@ -30,7 +30,9 @@ export const PlaceCard = ({ data, expandedCadr, setExpanded, navigation }) => {
   return (
     <Container>
       <Box>
-        <PlaceImage onTouchEnd={NavigateToplace} source={photo} />
+        <TouchableOpacity style={ImageWrap} onPress={NavigateToplace}>
+          <PlaceImage source={photo} />
+        </TouchableOpacity>
         <CardContent>
           <CardLabel>
             <BusinesType>{businesSubType}</BusinesType>
@@ -96,7 +98,7 @@ export const PlaceCard = ({ data, expandedCadr, setExpanded, navigation }) => {
   );
 };
 
-const maxHeight = windowWidth > 414 ? "150px" : "100px";
+const maxHeight = windowWidth > 414 ? 150 : 100;
 
 const Box = styled.View`
   width: 100%;
@@ -107,23 +109,29 @@ const Container = styled.View`
   width: 100%;
 `;
 const PlaceImage = styled.Image`
-  width: 30%;
+  width: 100%;
   max-height: ${maxHeight};
   border-radius: 5px;
 `;
 
+const ImageWrap = {
+  width: "30%",
+  maxHeight: maxHeight,
+};
 const FavoriteIcon = styled.Image`
   width: 22px;
   height: 22px;
 `;
 
 const FavoriteWrap = styled.View`
-  width: 50px;
-  height: 50px;
-  justify-content: center;
-  align-items: center;
+  width: 80px;
+  height: 80px;
+  justify-content: flex-start;
+  align-items: flex-end;
   position: absolute;
-  right: -20px;
+  padding-right: 2px;
+  right: 0;
+  top: 0;
 `;
 
 const Title = styled.Text`

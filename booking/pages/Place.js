@@ -58,7 +58,7 @@ export const Place = ({ navigation }) => {
 };
 
 const PhotoContainer = styled.View`
-  flex: 5;
+  flex: 4;
   width: 100%;
   align-items: center;
   justify-content: center;
@@ -67,7 +67,7 @@ const PhotoContainer = styled.View`
 `;
 
 const Content = styled.View`
-  flex: 10;
+  flex: 5;
   height: 100%;
   width: 100%;
   padding: 0 20px;
@@ -121,43 +121,9 @@ const ActiveDot = styled.View`
   border-radius: 5px;
 `;
 
-const TopButtonsBox = styled.View`
-  width: 100%;
-  flex-direction: row;
-  height: 50px;
-  position: absolute;
-  top: 30px;
-  justify-content: space-between;
-  z-index: 2;
-  padding: 0px 5%;
-`;
-
-const BackIconWrap = styled.View`
-  width: 45px;
-  height: 45px;
-  border-radius: 50px;
-  padding-left: 7px;
-  justify-content: center;
-  background-color: "rgb(255, 255, 255)";
-`;
-
-const FavoriteIconWrap = styled.View`
-  width: 45px;
-  height: 45px;
-  border-radius: 50px;
-  align-items: center;
-  justify-content: center;
-  background-color: "rgb(255, 255, 255)";
-`;
-
-const BackIcon = styled.Image`
+const FavoriteIcon = styled.Image`
   width: 30px;
   height: 30px;
-`;
-
-const FavoriteIcon = styled.Image`
-  width: 25px;
-  height: 25px;
 `;
 
 const NameOfBusiness = styled.Text`
@@ -169,11 +135,12 @@ const NameOfBusiness = styled.Text`
 const TitleBox = styled.View`
   flex-direction: row;
   margin-bottom: 10px;
+
   align-items: center;
 `;
 
 const Description = styled.Text`
   margin-top: 10px;
-  font-size: 18px;
+  font-size: 16px;
   color: #5c677d;
 `;

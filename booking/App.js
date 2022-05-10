@@ -1,6 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import { ChooseAccountType } from "./pages/ChooseAccountType";
 import { FindPlace } from "./pages/FindPlace";
 import { ChooseBusinessType } from "./pages/ChooseBusinessType";
@@ -13,7 +12,7 @@ export default function App() {
   const { Navigator, Screen } = Stack;
   return (
     <NavigationContainer>
-      <Navigator
+      <Navigator 
         screenOptions={screenOptions}
         initialRouteName="ChooseAccountType"
       >

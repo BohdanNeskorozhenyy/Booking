@@ -90,21 +90,11 @@ const places = [
 export const FindPlace = ({ navigation }) => {
   const [searchValue, setSearchValue] = useState("");
   const [placeType, setPlaceType] = useState("");
-  const [headerBorder, setHeaderBorder] = useState(0);
   const [expandedCadr, setExpandedCadr] = useState(0);
 
   const changeHandler = (e) => {
     setSearchValue(e);
     console.log(placeType);
-  };
-
-  const scrollHandler = (e) => {
-    const scrollHeight = e.nativeEvent.contentOffset.y;
-    if (scrollHeight > 2) {
-      setHeaderBorder(1);
-    } else {
-      setHeaderBorder(0);
-    }
   };
 
   return (
@@ -114,33 +104,36 @@ export const FindPlace = ({ navigation }) => {
         avatar
         navigation={navigation}
         location
-        style={{ borderBottomWidth: headerBorder }}
+        style={{ borderBottomWidth: 1 }}
       />
-      <Content>
+      <ScrollViewContainer>
         <ScrollView
-          onScroll={scrollHandler}
+          automaticallyAdjustContentInsets={false}
           showsVerticalScrollIndicator={false}
-          style={{ marginVertical: 3 }}
         >
-          <Title>Find a place</Title>
-          <SearchInput
-            onChange={(e) => changeHandler(e)}
-            value={searchValue}
-            placeholder="Search place"
-            clearInput={() => changeHandler("")}
-          />
-          <Tags onChange={setPlaceType} options={placeTypes} />
-          {places.map((place) => (
-            <PlaceCard
-              expandedCadr={expandedCadr}
-              setExpanded={setExpandedCadr}
-              key={place.id}
-              data={place}
-              navigation={navigation}
+          <Content>
+            <Title>Find a place</Title>
+            <SearchInput
+              onChange={(e) => changeHandler(e)}
+              value={searchValue}
+              placeholder="Search place"
+              clearInput={() => changeHandler("")}
             />
-          ))}
+            <Tags onChange={setPlaceType} options={placeTypes} />
+            {places.map((place) => (
+              <PlaceCard
+                expandedCadr={expandedCadr}
+                setExpanded={setExpandedCadr}
+                key={place.id}
+                data={place}
+                navigation={navigation}
+              />
+            ))}
+          </Content>
+          <Footer>
+          </Footer>
         </ScrollView>
-      </Content>
+      </ScrollViewContainer>
     </Container>
   );
 };
@@ -153,16 +146,25 @@ const Container = styled.View`
   justify-content: center;
 `;
 
-const Content = styled.View`
-  flex: 10;
+const ScrollViewContainer = styled.View`
+  flex: 9;
   width: 100%;
+`;
+
+const Content = styled.View`
   padding: 0 6%;
   justify-content: flex-start;
-  overflow: scroll;
 `;
 
 const Title = styled.Text`
   font-size: 30px;
   margin-top: 10px;
   font-weight: bold;
+`;
+
+const Footer = styled.View`
+  margin-top: 20px;
+  width: 100%;
+  height: 100px;
+  align-items: center;
 `;
