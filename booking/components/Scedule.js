@@ -1,9 +1,17 @@
 import { Accordion } from "./Accordion";
 import styled from "styled-components/native";
+import { timeParser } from "../helpers/timeParser";
 
 export const Scedule = ({ isExpanded, scedule, setExpanded }) => {
-  const { monday, tuesday, wednesday, tursday, friday, saturday, sunday } =
-    scedule;
+  const parseWorkTimePeriod = (day) => {
+    const start = timeParser(day.workTime.start);
+    const end = timeParser(day.workTime.end);
+
+    return `${start.hours}:${start.minutes} - ${end.hours}:${end.minutes}`;
+  };
+
+  console.log(scedule);
+
   return (
     <ListContainer>
       <OpenStatusBox>
@@ -15,37 +23,14 @@ export const Scedule = ({ isExpanded, scedule, setExpanded }) => {
         isExpanded={isExpanded}
         heightOfOpenState={350}
       >
-        <WorkDayItem style={{ paddingLeft: 30 }}>
-          <Day>Monday</Day>
-          <Day>{monday.workTime}</Day>
-        </WorkDayItem>
-        <WorkDayItem style={{ paddingLeft: 30 }}>
-          <Day>Tuesday</Day>
-          <Day>{tuesday.workTime}</Day>
-        </WorkDayItem>
-        <WorkDayItem style={{ paddingLeft: 30 }}>
-          <Day>Wednesday</Day>
-          <Day>{wednesday.workTime}</Day>
-        </WorkDayItem>
-        <WorkDayItem style={{ paddingLeft: 30 }}>
-          <Day>Tursday</Day>
-          <Day>{tursday.workTime}</Day>
-        </WorkDayItem>
-        <WorkDayItem style={{ paddingLeft: 30 }}>
-          <Day>Friday</Day>
-          <Day>{friday.workTime}</Day>
-        </WorkDayItem>
-        <WorkDayItem
-          dayOff={saturday.dayOff || true}
-          style={{ paddingLeft: 30 }}
-        >
-          <Day dayOff={saturday.dayOff}>Saturday</Day>
-          <Day dayOff={saturday.dayOff}>{saturday.workTime}</Day>
-        </WorkDayItem>
-        <WorkDayItem dayOff={sunday.dayOff} style={{ paddingLeft: 30 }}>
-          <Day dayOff={sunday.dayOff}>Sunday</Day>
-          <Day dayOff={sunday.dayOff}>{sunday.workTime}</Day>
-        </WorkDayItem>
+        {scedule.map((day) => {
+          return (
+            <WorkDayItem dayOff={day.dayOff} style={{ paddingLeft: 30 }}>
+              <Day dayOff={day.dayOff}>{day.name}</Day>
+              <Day dayOff={day.dayOff}>{parseWorkTimePeriod(day)}</Day>
+            </WorkDayItem>
+          );
+        })}
       </Accordion>
     </ListContainer>
   );

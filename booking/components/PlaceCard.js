@@ -1,7 +1,6 @@
 import styled from "styled-components/native";
 import React, { useState } from "react";
 import { Dimensions, TouchableOpacity } from "react-native";
-import { Accordion } from "./Accordion";
 import { Scedule } from "./Scedule";
 
 const windowWidth = Dimensions.get("window").width;
@@ -10,10 +9,6 @@ export const PlaceCard = ({ data, expandedCadr, setExpanded, navigation }) => {
   const [isFavorite, setIsfavorite] = useState(false);
   const { title, businesSubType, photo, description } = data;
 
-  const [toPlace, setToPlace] = useState("FindPlace");
-
-  const { monday, tuesday, wednesday, tursday, friday, saturday, sunday } =
-    data.scedule;
   const isExpanded = expandedCadr === data.id;
 
   const NavigateToplace = () => {
