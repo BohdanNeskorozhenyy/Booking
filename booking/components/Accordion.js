@@ -2,14 +2,14 @@ import styled from "styled-components/native";
 import { Animated, Image, TouchableOpacity } from "react-native";
 import { useState, useEffect, useRef } from "react";
 
-export const Accordion = ({ children, isExpanded, setExpanded }) => {
+export const Accordion = ({ children, isExpanded, onPress, heightOfOpenState }) => {
   const expandAnim = useRef(new Animated.Value(40)).current;
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const [localIsExpadned, setLocalIsExpanded] = useState(false);
 
   const makeBig = () => {
     Animated.timing(expandAnim, {
-      toValue: 350,
+      toValue: heightOfOpenState,
       duration: 350,
       useNativeDriver: false,
     }).start();
@@ -17,7 +17,7 @@ export const Accordion = ({ children, isExpanded, setExpanded }) => {
   const makeSmall = () => {
     Animated.timing(expandAnim, {
       toValue: 40,
-      duration: 350,
+      duration: heightOfOpenState,
       useNativeDriver: false,
     }).start();
   };
@@ -38,9 +38,13 @@ export const Accordion = ({ children, isExpanded, setExpanded }) => {
     }).start();
   };
 
+  const LocalOpenHAndlerr = () => {
+    onPress && onPress();
+    setLocalIsExpanded(!localIsExpadned);
+  };
+
   useEffect(() => {
-    isExpanded ? makeBig() : makeSmall();
-    isExpanded ? rotateDown() : rotateUp();
+    setLocalIsExpanded(isExpanded);
   }, [isExpanded]);
 
   useEffect(() => {
@@ -49,38 +53,31 @@ export const Accordion = ({ children, isExpanded, setExpanded }) => {
   }, [localIsExpadned]);
 
   return (
-
-      <Animated.View style={[ContainerStyle, { height: expandAnim }]}>
-        <TouchableOpacity
-          onPress={setExpanded ? setExpanded : setLocalIsExpanded}
-        >
-          <Header>
-            <Animated.Image
-              style={[
-                ExpandIconStyled,
-                {
-                  transform: [
-                    {
-                      rotate: rotateAnim.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: ["0deg", "180deg"],
-                      }),
-                    },
-                  ],
-                },
-              ]}
-              source={require("../icons/bownArrow.png")}
-            />
-          </Header>
-        </TouchableOpacity>
-        {children}
-      </Animated.View>
+    <Animated.View style={[ContainerStyle, { height: expandAnim }]}>
+      <TouchableOpacity onPress={LocalOpenHAndlerr}>
+        <Header>
+          <Animated.Image
+            style={[
+              ExpandIconStyled,
+              {
+                transform: [
+                  {
+                    rotate: rotateAnim.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: ["0deg", "180deg"],
+                    }),
+                  },
+                ],
+              },
+            ]}
+            source={require("../icons/bownArrow.png")}
+          />
+        </Header>
+      </TouchableOpacity>
+      {children}
+    </Animated.View>
   );
 };
-
-
-
-
 
 const ContainerStyle = {
   width: "100%",

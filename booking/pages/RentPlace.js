@@ -1,13 +1,26 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useState, useCallback } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import Slick from "react-native-slick";
 import { StatusBar } from "expo-status-bar";
 import { LocationComponent } from "../components/Location";
 import { Header } from "../components/Header";
+import { DateTimePicker } from "../components/DateTimePicker";
 
-export const Place = ({ navigation }) => {
+
+export const RentPlace = ({ navigation }) => {
   const [isFavorite, setIsfavorite] = useState(false);
+
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+
+  const onConfirm = useCallback(
+    (params) => {
+      setOpen(false);
+      setDate(params.date);
+    },
+    [setOpen, setDate]
+  );
 
   return (
     <Container>
@@ -52,6 +65,10 @@ export const Place = ({ navigation }) => {
           alcoholic beverages, We cook pizza, make hookahs, eat alcoholic
           beverages
         </Description>
+        <DateTimePicker visible={open} date={date} onConfirm={onConfirm} />
+        <TouchableOpacity>
+          <Description onPress={() => setOpen(true)}>{date + ""}</Description>
+        </TouchableOpacity>
       </Content>
     </Container>
   );
@@ -143,4 +160,6 @@ const Description = styled.Text`
   margin-top: 10px;
   font-size: 16px;
   color: #5c677d;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
 `;

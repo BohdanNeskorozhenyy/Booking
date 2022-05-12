@@ -1,16 +1,9 @@
 import styled from "styled-components/native";
 import React, { useState } from "react";
 import { Dimensions, TouchableOpacity } from "react-native";
-import { List, DefaultTheme } from "react-native-paper";
 import { Accordion } from "./Accordion";
+import { Scedule } from "./Scedule";
 
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: "transparent",
-  },
-};
 const windowWidth = Dimensions.get("window").width;
 
 export const PlaceCard = ({ data, expandedCadr, setExpanded, navigation }) => {
@@ -24,7 +17,7 @@ export const PlaceCard = ({ data, expandedCadr, setExpanded, navigation }) => {
   const isExpanded = expandedCadr === data.id;
 
   const NavigateToplace = () => {
-    navigation.navigate("Place");
+    navigation.navigate("RentPlace");
   };
 
   return (
@@ -52,48 +45,11 @@ export const PlaceCard = ({ data, expandedCadr, setExpanded, navigation }) => {
           </Description>
         </CardContent>
       </Box>
-      <ListContainer>
-        <OpenStatusBox>
-          <OpenStatus>Open</OpenStatus>
-          {!isExpanded && <TimeOfClothe>Closes at 21:00</TimeOfClothe>}
-        </OpenStatusBox>
-        <Accordion
-          setExpanded={() => setExpanded(isExpanded ? 0 : data.id)}
-          isExpanded={isExpanded}
-        >
-          <WorkDayItem style={{ paddingLeft: 30 }}>
-            <Day>Monday</Day>
-            <Day>{monday.workTime}</Day>
-          </WorkDayItem>
-          <WorkDayItem style={{ paddingLeft: 30 }}>
-            <Day>Tuesday</Day>
-            <Day>{tuesday.workTime}</Day>
-          </WorkDayItem>
-          <WorkDayItem style={{ paddingLeft: 30 }}>
-            <Day>Wednesday</Day>
-            <Day>{wednesday.workTime}</Day>
-          </WorkDayItem>
-          <WorkDayItem style={{ paddingLeft: 30 }}>
-            <Day>Tursday</Day>
-            <Day>{tursday.workTime}</Day>
-          </WorkDayItem>
-          <WorkDayItem style={{ paddingLeft: 30 }}>
-            <Day>Friday</Day>
-            <Day>{friday.workTime}</Day>
-          </WorkDayItem>
-          <WorkDayItem
-            dayOff={saturday.dayOff || true}
-            style={{ paddingLeft: 30 }}
-          >
-            <Day dayOff={saturday.dayOff}>Saturday</Day>
-            <Day dayOff={saturday.dayOff}>{saturday.workTime}</Day>
-          </WorkDayItem>
-          <WorkDayItem dayOff={sunday.dayOff} style={{ paddingLeft: 30 }}>
-            <Day dayOff={sunday.dayOff}>Sunday</Day>
-            <Day dayOff={sunday.dayOff}>{sunday.workTime}</Day>
-          </WorkDayItem>
-        </Accordion>
-      </ListContainer>
+      <Scedule
+        setExpanded={() => setExpanded(isExpanded ? 0 : data.id)}
+        isExpanded={isExpanded}
+        scedule={data.scedule}
+      />
     </Container>
   );
 };
