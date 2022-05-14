@@ -5,6 +5,7 @@ import { FindPlace } from "./pages/FindPlace";
 import { ChooseBusinessType } from "./pages/ChooseBusinessType";
 import { RentPlace } from "./pages/RentPlace";
 
+
 const Stack = createNativeStackNavigator();
 const screenOptions = { headerShown: false };
 

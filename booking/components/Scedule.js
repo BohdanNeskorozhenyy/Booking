@@ -10,8 +10,6 @@ export const Scedule = ({ isExpanded, scedule, setExpanded }) => {
     return `${start.hours}:${start.minutes} - ${end.hours}:${end.minutes}`;
   };
 
-  console.log(scedule);
-
   return (
     <ListContainer>
       <OpenStatusBox>
@@ -23,11 +21,11 @@ export const Scedule = ({ isExpanded, scedule, setExpanded }) => {
         isExpanded={isExpanded}
         heightOfOpenState={350}
       >
-        {scedule.map((day) => {
+        {scedule.map((day, i) => {
           return (
-            <WorkDayItem dayOff={day.dayOff} style={{ paddingLeft: 30 }}>
-              <Day dayOff={day.dayOff}>{day.name}</Day>
-              <Day dayOff={day.dayOff}>{parseWorkTimePeriod(day)}</Day>
+            <WorkDayItem key={i} code={day.code} dayOff={day.dayOff} style={{ paddingLeft: 30 }}>
+              <Day code={day.code} dayOff={day.dayOff}>{day.name}</Day>
+              <Day code={day.code} dayOff={day.dayOff}>{!day.dayOff? parseWorkTimePeriod(day): "Day off"}</Day>
             </WorkDayItem>
           );
         })}
@@ -65,7 +63,7 @@ const TimeOfClothe = styled.Text`
 const WorkDayItem = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  background-color: ${(props) => (props.dayOff ? "#d988cd" : "#e6e6e6")};
+  background-color: ${(props) => (props.dayOff? '#d988cd' : props.code > 5 ? "#b5179e" : "#e6e6e6")};
   padding: 5px;
   padding-right: 30px;
   margin-bottom: 10px;
@@ -73,6 +71,6 @@ const WorkDayItem = styled.View`
 `;
 
 const Day = styled.Text`
-  color: ${(props) => (props.dayOff ? "white" : "#58707c")};
+  color: ${(props) => (props.dayOff || props.code > 5 ? "white" : "#58707c")};
   font-size: 18px;
 `;

@@ -4,7 +4,8 @@ export const places = [
     title: "Dengoff Bar",
     businesSubType: "Food / drink",
     businesType: "rent",
-    photo: require("./images/dengoff.png"),
+    location: "Tetiev, Shevchenko Street, 132",
+    photo: [require("./images/dengoff.png"), require("./images/dengoff1.png"), require("./images/dengoff2.png"), require("./images/dengoff3.png")],
     description:
       "We cook pizza, make hookahs, eat alcoholic beverages, We cook pizza, make hookahs, eat alcoholic beverages",
     scedule: [
@@ -12,7 +13,7 @@ export const places = [
         code: 1,
         name: "Monday",
         workTime: {
-          start: { hours: 10, minutes: 15 },
+          start: { hours: 9, minutes: 30 },
           end: { hours: 21, minutes: 0 },
         },
         dayOff: false,
@@ -57,13 +58,13 @@ export const places = [
         code: 6,
         name: "Saturday",
         workTime: {
-          start: { hours: 10, minutes: 15 },
-          end: { hours: 21, minutes: 0 },
+          start: { hours: 9, minutes: 0 },
+          end: { hours: 19, minutes: 0 },
         },
-        dayOff: true,
+        dayOff: false,
       },
       {
-        code: 7,
+        code: 0,
         name: "Sunday",
         workTime: {
           start: { hours: 10, minutes: 15 },
@@ -78,7 +79,8 @@ export const places = [
     title: "4men",
     businesSubType: "Services",
     businesType: "service",
-    photo: require("./images/forMen.png"),
+    photo: [require("./images/forMen.png")],
+    location: "Tetiev, Shevchenko Street, 132",
     description: "Men's barber shop",
     scedule: [
       {
@@ -151,7 +153,8 @@ export const places = [
     title: "The Space",
     businesSubType: "Work",
     businesType: "rent",
-    photo: require("./images/space.png"),
+    location: "Tetiev, Shevchenko Street, 132",
+    photo: [require("./images/space.png")],
     description: "Space for work, meetings, conferences",
     scedule: [
       {
@@ -224,7 +227,8 @@ export const places = [
     title: "L`evidence Beaute",
     businesSubType: "Beaute",
     businesType: "service",
-    photo: require("./images/BeautySalon.png"),
+    location: "Tetiev, Shevchenko Street, 132",
+    photo: [require("./images/BeautySalon.png")],
     description:
       "The only premium beauty salon in Kyiv with a history of over 20 years",
       scedule: [

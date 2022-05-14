@@ -19,19 +19,23 @@ export const PlaceCard = ({ data, expandedCadr, setExpanded, navigation }) => {
     <Container>
       <Box>
         <TouchableOpacity style={ImageWrap} onPress={NavigateToplace}>
-          <PlaceImage source={photo} />
+          <PlaceImage source={photo[0]} />
         </TouchableOpacity>
         <CardContent>
           <CardLabel>
             <BusinesType>{businesSubType}</BusinesType>
             {isFavorite ? (
-              <FavoriteWrap onTouchEnd={() => setIsfavorite(!isFavorite)}>
-                <FavoriteIcon source={require("../icons/likeBlue.png")} />
-              </FavoriteWrap>
+              <TouchableOpacity onPress={() => setIsfavorite(!isFavorite)}>
+                <FavoriteWrap>
+                  <FavoriteIcon source={require("../icons/likeBlue.png")} />
+                </FavoriteWrap>
+              </TouchableOpacity>
             ) : (
-              <FavoriteWrap onTouchEnd={() => setIsfavorite(!isFavorite)}>
-                <FavoriteIcon source={require("../icons/like.png")} />
-              </FavoriteWrap>
+              <TouchableOpacity onPress={() => setIsfavorite(!isFavorite)}>
+                <FavoriteWrap>
+                  <FavoriteIcon source={require("../icons/like.png")} />
+                </FavoriteWrap>
+              </TouchableOpacity>
             )}
           </CardLabel>
           <Title>{title}</Title>
@@ -116,43 +120,5 @@ const Description = styled.Text`
   color: #5c677d;
 `;
 
-const ListContainer = styled.View`
-  width: 100%;
-  border-bottom-width: 1;
-  border-bottom-color: #47315a;
-  padding-bottom: 10px;
-`;
 
-const OpenStatusBox = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  position: absolute;
-  top: 18px;
-  left: 5px;
-`;
 
-const OpenStatus = styled.Text`
-  font-size: 16px;
-  font-weight: bold;
-  color: #6842ff;
-  margin-right: 20px;
-`;
-const TimeOfClothe = styled.Text`
-  font-size: 16px;
-  font-weight: bold;
-`;
-
-const WorkDayItem = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: ${(props) => (props.dayOff ? "#d988cd" : "#e6e6e6")};
-  padding: 5px;
-  padding-right: 30px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-`;
-
-const Day = styled.Text`
-  color: ${(props) => (props.dayOff ? "white" : "#58707c")};
-  font-size: 18px;
-`;

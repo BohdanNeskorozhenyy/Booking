@@ -1,28 +1,45 @@
-import React, { useState, useCallback } from "react";
-import { StyleSheet, View, TouchableOpacity, Dimensions } from "react-native";
+import React, { useState, useCallback, useEffect } from "react";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
-import Slick from "react-native-slick";
 import { StatusBar } from "expo-status-bar";
+
 import { LocationComponent } from "../components/Location";
 import { Header } from "../components/Header";
 import { DateTimePicker } from "../components/DateTimePicker";
 import { Scedule } from "../components/Scedule";
+import { Slider } from "../components/Slider";
+
 import { ScrollView } from "react-native";
+
 import { places } from "../mockData";
-const windowWidth = Dimensions.get("window").width;
 
 export const RentPlace = ({ navigation }) => {
   const [isFavorite, setIsfavorite] = useState(false);
   const [isSceduleOpen, setisSceduleOpen] = useState(false);
 
-  const { scedule } = places[0];
+  const { scedule, photo, description, title, location } = places[0];
   const [date, setDate] = useState(new Date());
   const [dateOpen, setDateOpen] = useState(false);
 
-  const theDay = date.getDay();
-
-  const [time, setTime] = useState({ hours: 10, minutes: 0 });
+  const [time, setTime] = useState({ hours: 10, minutes: 15 });
   const [timeOpen, setTimeOpen] = useState(false);
+
+  useEffect(() => {
+    const today = new Date();
+    const theDayCode = date.getDay();
+
+    const todayToCompare = today.getTime() + "";
+    const dateToCompare = date.getTime() + "";
+
+    if (todayToCompare.slice(1, 5) !== dateToCompare.slice(1, 5)) {
+      const sceduleDay = scedule.filter((day) => day.code === theDayCode);
+      setTime(sceduleDay[0].workTime.start);
+    } else {
+      const hours = today.getHours();
+      const minutes = today.getMinutes();
+      setTime({ hours: hours + 1, minutes: minutes });
+    }
+  }, [date]);
 
   const onDateConfirm = useCallback(
     (params) => {
@@ -63,40 +80,20 @@ export const RentPlace = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
           style={{ flex: 9 }}
         >
-          <PhotoContainer>
-            <Slick
-              activeDot={<ActiveDot />}
-              dot={<Dot />}
-              style={styles.wrapper}
-              showsButtons={false}
-            >
-              <View style={styles.slide}>
-                <PlaceImage source={require("../images/BeautySalon.png")} />
-              </View>
-              <View style={styles.slide}>
-                <PlaceImage source={require("../images/dengoff.png")} />
-              </View>
-              <View style={styles.slide}>
-                <PlaceImage source={require("../images/forMen.png")} />
-              </View>
-            </Slick>
-          </PhotoContainer>
+          <Slider photo={photo} />
           <ContentWraper>
-            <TitleBox onTouchEnd={() => setIsfavorite(!isFavorite)}>
-              <NameOfBusiness>Dengoff Bar</NameOfBusiness>
-              {isFavorite ? (
-                <FavoriteIcon source={require("../icons/likeBlue.png")} />
-              ) : (
-                <FavoriteIcon source={require("../icons/like.png")} />
-              )}
-            </TitleBox>
-            <LocationComponent location={"Tetiev, Shevchenko Street, 132"} />
-            <Description>
-              We cook pizza, make hookahs, eat alcoholic beverages, We cook
-              pizza, make hookahs, eat alcoholic beverages We cook pizza, make
-              hookahs, eat alcoholic beverages, We cook pizza, make hookahs, eat
-              alcoholic beverages
-            </Description>
+            <TouchableOpacity onPress={() => setIsfavorite(!isFavorite)}>
+              <TitleBox>
+                <NameOfBusiness>{title}</NameOfBusiness>
+                {isFavorite ? (
+                  <FavoriteIcon source={require("../icons/likeBlue.png")} />
+                ) : (
+                  <FavoriteIcon source={require("../icons/like.png")} />
+                )}
+              </TitleBox>
+            </TouchableOpacity>
+            <LocationComponent location={location} />
+            <Description>{description}</Description>
             <Scedule
               setExpanded={() => setisSceduleOpen(!isSceduleOpen)}
               isExpanded={isSceduleOpen}
@@ -126,13 +123,6 @@ const Content = styled.View`
   width: 100%;
 `;
 
-const PhotoContainer = styled.View`
-  height: ${windowWidth > 500 ? "500px" : "300px"};
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  z-index: 1;
-`;
 const ContentWraper = styled.View`
   width: 100%;
   padding: 0 20px;
@@ -143,46 +133,6 @@ const Container = styled.View`
   width: 100%;
   flex: 1;
   align-items: center;
-`;
-
-const PlaceImage = styled.Image`
-  width: 100%;
-  height: 100%;
-`;
-
-const styles = StyleSheet.create({
-  wrapper: {},
-  slide: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    color: "#fff",
-    fontSize: 30,
-    fontWeight: "bold",
-  },
-});
-
-const Dot = styled.View`
-  background-color: "rgb(255, 255, 255)";
-  width: 10;
-  height: 5;
-  margin-left: 3;
-  margin-right: 3;
-  margin-top: 3;
-  margin-bottom: 3;
-  border-radius: 5px;
-`;
-
-const ActiveDot = styled.View`
-  background-color: "rgb(255, 255, 255)";
-  width: 20;
-  height: 5;
-  margin-left: 3;
-  margin-right: 3;
-  margin-top: 3;
-  margin-bottom: 3;
-  border-radius: 5px;
 `;
 
 const FavoriteIcon = styled.Image`

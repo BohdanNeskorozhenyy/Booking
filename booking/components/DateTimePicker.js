@@ -52,7 +52,7 @@ export const DateTimePicker = ({
       <TouchableOpacity onPress={onTimePress}>
         <DateWrap>
           <Date>{`${parsedTime.hours}:${parsedTime.minutes}`}</Date>
-          <Icon source={require("../icons/calendar.png")} />
+          <Icon source={require("../icons/clock.png")} />
         </DateWrap>
       </TouchableOpacity>
     </Container>
