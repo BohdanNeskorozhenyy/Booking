@@ -14,7 +14,7 @@ export const places = [
         name: "Monday",
         workTime: {
           start: { hours: 9, minutes: 30 },
-          end: { hours: 21, minutes: 0 },
+          end: { hours: 19, minutes: 0 },
         },
         dayOff: false,
       },
@@ -52,7 +52,7 @@ export const places = [
           start: { hours: 10, minutes: 15 },
           end: { hours: 21, minutes: 0 },
         },
-        dayOff: false,
+        dayOff: true,
       },
       {
         code: 6,
@@ -61,7 +61,7 @@ export const places = [
           start: { hours: 9, minutes: 0 },
           end: { hours: 19, minutes: 0 },
         },
-        dayOff: false,
+        dayOff: true,
       },
       {
         code: 0,
@@ -115,7 +115,7 @@ export const places = [
         name: "Tursday",
         workTime: {
           start: { hours: 10, minutes: 15 },
-          end: { hours: 21, minutes: 0 },
+          end: { hours: 19, minutes: 0 },
         },
         dayOff: false,
       },
@@ -189,7 +189,7 @@ export const places = [
         name: "Tursday",
         workTime: {
           start: { hours: 10, minutes: 15 },
-          end: { hours: 21, minutes: 0 },
+          end: { hours: 16, minutes: 0 },
         },
         dayOff: false,
       },
@@ -266,7 +266,7 @@ export const places = [
             start: { hours: 10, minutes: 15 },
             end: { hours: 21, minutes: 0 },
           },
-          dayOff: false,
+          dayOff: true,
         },
         {
           code: 5,

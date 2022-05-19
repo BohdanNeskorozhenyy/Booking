@@ -11,6 +11,8 @@ import { timeParser } from "../helpers/timeParser";
 registerTranslation("en-GB", enGB);
 
 export const DateTimePicker = ({
+  daysOff,
+
   dateVisible,
   date,
   onDateConfirm,
@@ -27,6 +29,8 @@ export const DateTimePicker = ({
 
   const parsedTime = timeParser(time);
 
+
+
   return (
     <Container>
       <Title>Select a visit time</Title>
@@ -37,6 +41,7 @@ export const DateTimePicker = ({
         date={date}
         onConfirm={onDateConfirm}
         onDismiss={onDateDismiss}
+        disableWeekDays={daysOff}
       />
       <TimePickerModal
         onConfirm={onTimeConfirm}

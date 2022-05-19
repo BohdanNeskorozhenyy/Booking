@@ -1,33 +1,32 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from "expo-status-bar";
-
 import { LocationComponent } from "../components/Location";
 import { Header } from "../components/Header";
 import { DateTimePicker } from "../components/DateTimePicker";
 import { Scedule } from "../components/Scedule";
 import { Slider } from "../components/Slider";
-
 import { ScrollView } from "react-native";
-
 import { places } from "../mockData";
+import { checkIsDayOff } from "../helpers/checkIsDayOff";
 
 export const RentPlace = ({ navigation }) => {
   const [isFavorite, setIsfavorite] = useState(false);
   const [isSceduleOpen, setisSceduleOpen] = useState(false);
 
   const { scedule, photo, description, title, location } = places[0];
+  const daysOff = scedule.filter((day) => day.dayOff);
+  const daysOffCodes = daysOff.map((day) => day.code);
+
   const [date, setDate] = useState(new Date());
   const [dateOpen, setDateOpen] = useState(false);
-
   const [time, setTime] = useState({ hours: 10, minutes: 15 });
   const [timeOpen, setTimeOpen] = useState(false);
 
   useEffect(() => {
     const today = new Date();
     const theDayCode = date.getDay();
-
     const todayToCompare = today.getTime() + "";
     const dateToCompare = date.getTime() + "";
 
@@ -40,6 +39,16 @@ export const RentPlace = ({ navigation }) => {
       setTime({ hours: hours + 1, minutes: minutes });
     }
   }, [date]);
+
+  useEffect(()=> {
+    if(daysOffCodes.includes(date.getDay())){
+      setDate(checkIsDayOff(date, daysOffCodes))
+    }
+  }, [date])
+
+
+
+ 
 
   const onDateConfirm = useCallback(
     (params) => {
@@ -100,6 +109,7 @@ export const RentPlace = ({ navigation }) => {
               scedule={scedule}
             />
             <DateTimePicker
+              daysOff={daysOffCodes}
               onDatePress={() => setDateOpen(true)}
               dateVisible={dateOpen}
               date={date}

@@ -10,11 +10,18 @@ export const Scedule = ({ isExpanded, scedule, setExpanded }) => {
     return `${start.hours}:${start.minutes} - ${end.hours}:${end.minutes}`;
   };
 
+  const theDay = scedule.filter((day) => day.code === new Date().getDay());
+
+  const { end } = theDay[0].workTime;
   return (
     <ListContainer>
       <OpenStatusBox>
-        <OpenStatus>Open</OpenStatus>
-        {!isExpanded && <TimeOfClothe>Closes at 21:00</TimeOfClothe>}
+        <OpenStatus>{theDay[0].dayOff? 'Closet' : 'Open'}</OpenStatus>
+        {!isExpanded && (
+          <TimeOfClothe>
+            {theDay[0].dayOff? "Day off" : `Closes at ${timeParser(end).hours}:${timeParser(end).minutes}`}
+          </TimeOfClothe>
+        )}
       </OpenStatusBox>
       <Accordion
         onPress={setExpanded}
@@ -23,9 +30,18 @@ export const Scedule = ({ isExpanded, scedule, setExpanded }) => {
       >
         {scedule.map((day, i) => {
           return (
-            <WorkDayItem key={i} code={day.code} dayOff={day.dayOff} style={{ paddingLeft: 30 }}>
-              <Day code={day.code} dayOff={day.dayOff}>{day.name}</Day>
-              <Day code={day.code} dayOff={day.dayOff}>{!day.dayOff? parseWorkTimePeriod(day): "Day off"}</Day>
+            <WorkDayItem
+              key={i}
+              code={day.code}
+              dayOff={day.dayOff}
+              style={{ paddingLeft: 30 }}
+            >
+              <Day code={day.code} dayOff={day.dayOff}>
+                {day.name}
+              </Day>
+              <Day code={day.code} dayOff={day.dayOff}>
+                {!day.dayOff ? parseWorkTimePeriod(day) : "Day off"}
+              </Day>
             </WorkDayItem>
           );
         })}
@@ -63,7 +79,8 @@ const TimeOfClothe = styled.Text`
 const WorkDayItem = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  background-color: ${(props) => (props.dayOff? '#d988cd' : props.code > 5 ? "#b5179e" : "#e6e6e6")};
+  background-color: ${(props) =>
+    props.dayOff ? "#d988cd" : props.code > 5 ? "#b5179e" : "#e6e6e6"};
   padding: 5px;
   padding-right: 30px;
   margin-bottom: 10px;
