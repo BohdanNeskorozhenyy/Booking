@@ -16,10 +16,14 @@ export const Scedule = ({ isExpanded, scedule, setExpanded }) => {
   return (
     <ListContainer>
       <OpenStatusBox>
-        <OpenStatus>{theDay[0].dayOff? 'Closet' : 'Open'}</OpenStatus>
+        <OpenStatus dayOff={theDay[0].dayOff}>
+          {theDay[0].dayOff ? "Closed today" : "Open"}
+        </OpenStatus>
         {!isExpanded && (
           <TimeOfClothe>
-            {theDay[0].dayOff? "Day off" : `Closes at ${timeParser(end).hours}:${timeParser(end).minutes}`}
+            {theDay[0].dayOff
+              ? ""
+              : `Closes at ${timeParser(end).hours}:${timeParser(end).minutes}`}
           </TimeOfClothe>
         )}
       </OpenStatusBox>
@@ -68,7 +72,7 @@ const OpenStatusBox = styled.View`
 const OpenStatus = styled.Text`
   font-size: 16px;
   font-weight: bold;
-  color: #6842ff;
+  color: ${(props) => (props.dayOff ? "red" : "#6842ff")};
   margin-right: 20px;
 `;
 const TimeOfClothe = styled.Text`

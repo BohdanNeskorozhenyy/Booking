@@ -16,7 +16,7 @@ export const places = [
           start: { hours: 9, minutes: 30 },
           end: { hours: 19, minutes: 0 },
         },
-        dayOff: false,
+        dayOff: true,
       },
       {
         code: 2,

@@ -30,7 +30,6 @@ export const DateTimePicker = ({
   const parsedTime = timeParser(time);
 
 
-
   return (
     <Container>
       <Title>Select a visit time</Title>
@@ -47,6 +46,8 @@ export const DateTimePicker = ({
         onConfirm={onTimeConfirm}
         onDismiss={onTimeDismiss}
         visible={timeVisible}
+        hours={time.hours}
+        minutes={time.minutes}
       />
       <TouchableOpacity onPress={onDatePress}>
         <DateWrap>
