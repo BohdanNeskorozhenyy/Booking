@@ -14,41 +14,49 @@ import { checkIsDayOff } from "../helpers/checkIsDayOff";
 export const RentPlace = ({ navigation }) => {
   const [isFavorite, setIsfavorite] = useState(false);
   const [isSceduleOpen, setisSceduleOpen] = useState(false);
-
-  const { scedule, photo, description, title, location } = places[0];
-  const daysOff = scedule.filter((day) => day.dayOff);
-  const daysOffCodes = daysOff.map((day) => day.code);
-
   const [date, setDate] = useState(new Date());
   const [dateOpen, setDateOpen] = useState(false);
-  const [time, setTime] = useState({ hours: 10, minutes: 15 });
+  const [time, setTime] = useState({});
   const [timeOpen, setTimeOpen] = useState(false);
 
-  useEffect(() => {
-    const today = new Date();
-    const theDayCode = date.getDay();
-    const todayToCompare = today.getTime() + "";
-    const dateToCompare = date.getTime() + "";
+  const { scedule, photo, description, title, location, items } = places[0];
 
+  const daysOff = scedule.filter((day) => day.dayOff);
+  const daysOffCodes = daysOff.map((day) => day.code);
+  const today = new Date();
+  const hours = today.getHours();
+  const minutes = today.getMinutes();
+  const theDayCode = date.getDay();
+  const todayToCompare = today.getTime() + "";
+  const dateToCompare = date.getTime() + "";
+
+  const sceduleDay = scedule.filter((day) => day.code === theDayCode);
+  const { end } = sceduleDay[0].workTime;
+  
+  const todayInMiliseconds = hours * 3600000 + minutes * 60000;
+  const endInMiliseconds = end.hours * 3600000 + end.minutes * 60000;
+  const isWorkTime = endInMiliseconds >= todayInMiliseconds;
+  const plussOneDay = 86400000;
+
+  useEffect(() => {
     if (todayToCompare.slice(1, 5) !== dateToCompare.slice(1, 5)) {
-      const sceduleDay = scedule.filter((day) => day.code === theDayCode);
       setTime(sceduleDay[0].workTime.start);
     } else {
-      const hours = today.getHours();
-      const minutes = today.getMinutes();
       setTime({ hours: hours + 1, minutes: minutes });
     }
   }, [date]);
 
-  useEffect(()=> {
-    if(daysOffCodes.includes(date.getDay())){
-      setDate(checkIsDayOff(date, daysOffCodes))
+  useEffect(() => {
+    if (daysOffCodes.includes(date.getDay())) {
+      setDate(checkIsDayOff(date, daysOffCodes));
     }
-  }, [date])
+  }, [date]);
 
-
-
- 
+  useEffect(() => {
+    if (!isWorkTime) {
+      setDate(new Date(date.getTime() + plussOneDay));
+    }
+  }, []);
 
   const onDateConfirm = useCallback(
     (params) => {

@@ -11,17 +11,21 @@ export const Scedule = ({ isExpanded, scedule, setExpanded }) => {
   };
 
   const theDay = scedule.filter((day) => day.code === new Date().getDay());
-
   const { end } = theDay[0].workTime;
+  const now = new Date();
+  const nowInMiliseconds = now.getHours() * 3600000 + now.getMinutes() * 60000;
+  const endInMiliseconds = end.hours * 3600000 + end.minutes * 60000;
+  const isWorkTime = endInMiliseconds >= nowInMiliseconds;
+
   return (
     <ListContainer>
       <OpenStatusBox>
-        <OpenStatus dayOff={theDay[0].dayOff}>
-          {theDay[0].dayOff ? "Closed today" : "Open"}
+        <OpenStatus isWorkTime={isWorkTime} dayOff={theDay[0].dayOff}>
+          {theDay[0].dayOff || !isWorkTime ? "Closed now" : "Open"}
         </OpenStatus>
         {!isExpanded && (
           <TimeOfClothe>
-            {theDay[0].dayOff
+            {theDay[0].dayOff || !isWorkTime
               ? ""
               : `Closes at ${timeParser(end).hours}:${timeParser(end).minutes}`}
           </TimeOfClothe>
@@ -72,7 +76,7 @@ const OpenStatusBox = styled.View`
 const OpenStatus = styled.Text`
   font-size: 16px;
   font-weight: bold;
-  color: ${(props) => (props.dayOff ? "red" : "#6842ff")};
+  color: ${(props) => (props.dayOff || !props.isWorkTime ? "red" : "#6842ff")};
   margin-right: 20px;
 `;
 const TimeOfClothe = styled.Text`
