@@ -84,58 +84,58 @@ export const places = [
           nameOfCategory: "Tables (For smokers)",
           itemsOfCategory: [
             {
-              id: '1',
+              id: "1",
               title: "4 seats",
               photo: "",
-              bookings: []
+              bookings: [],
             },
             {
-              id: '2',
+              id: "2",
               title: "4 seats",
               photo: "",
-              bookings: []
+              bookings: [],
             },
             {
-              id: '3',
+              id: "3",
               title: "2 seats",
               photo: "",
-              bookings: []
+              bookings: [],
             },
             {
-              id: '4',
+              id: "4",
               title: "6 seats",
               photo: "",
-              bookings: []
-            }
+              bookings: [],
+            },
           ],
         },
         {
           nameOfCategory: "Tables (For non-smokers)",
           itemsOfCategory: [
             {
-              id: '1',
+              id: "1",
               title: "4 seats",
               photo: "",
-              bookings: []
+              bookings: [],
             },
             {
-              id: '2',
+              id: "2",
               title: "4 seats",
               photo: "",
-              bookings: []
+              bookings: [],
             },
             {
-              id: '3',
+              id: "3",
               title: "2 seats",
               photo: "",
-              bookings: []
+              bookings: [],
             },
             {
-              id: '4',
+              id: "4",
               title: "6 seats",
               photo: "",
-              bookings: []
-            }
+              bookings: [],
+            },
           ],
         },
       ],
